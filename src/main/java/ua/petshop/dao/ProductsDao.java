@@ -1,4 +1,4 @@
-package ua.petshop.Dao;
+package ua.petshop.dao;
 
 import org.springframework.stereotype.Repository;
 import ua.petshop.model.Product;

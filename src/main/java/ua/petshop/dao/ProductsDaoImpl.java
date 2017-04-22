@@ -1,4 +1,4 @@
-package ua.petshop.Dao;
+package ua.petshop.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
