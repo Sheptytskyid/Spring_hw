@@ -18,14 +18,14 @@ public class ProductsDaoImpl implements ProductsDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public void add(Product product) {
+    public void addProduct(Product product) {
         Session session = sessionFactory.openSession();
         session.persist(product);
     }
 
     public List<Product> getAll() {
         Session session = sessionFactory.openSession();
-        List<Product> list = session.createSQLQuery("select * from products;").list();
+        List<Product> list = session.createQuery("from Product").list();
         return list;
     }
 
@@ -35,13 +35,13 @@ public class ProductsDaoImpl implements ProductsDao {
         return product;
     }
 
-    public void deleteById(long id) {
+    public void deleteProduct(long id) {
         Session session = sessionFactory.openSession();
         Product product = getById(id);
         session.delete(product);
     }
 
-    public void updateById(Product product) {
+    public void updateProduct(Product product) {
         Session session = sessionFactory.openSession();
         session.update(product);
     }

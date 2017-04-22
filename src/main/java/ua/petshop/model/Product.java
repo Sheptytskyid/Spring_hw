@@ -19,16 +19,12 @@ public class Product {
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(unique = true, nullable = false)
     private Long id;
-
     @Column(nullable = false)
-
     private String name;
     @Column(name = "manufacturer")
     private String manufacturer;
-
     @Column(name = "price")
-   private int price;
-
+    private int price;
     @Column(name = "description")
     private String description;
 

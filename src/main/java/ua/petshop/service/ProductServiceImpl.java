@@ -18,8 +18,8 @@ public class ProductServiceImpl implements ProductsService {
         this.productsDao = productsDao;
     }
     @Transactional
-    public void add(Product product) {
-        productsDao.add(product);
+    public void addProduct(Product product) {
+        productsDao.addProduct(product);
     }
     @Transactional
     public List<Product> getAll() {
@@ -30,7 +30,11 @@ public class ProductServiceImpl implements ProductsService {
         return productsDao.getById(id);
     }
     @Transactional
-    public void deleteById(long id) {
-        productsDao.deleteById(id);
+    public void deleteProduct(long id) {
+        productsDao.deleteProduct(id);
+    }
+    @Transactional
+    public void updateProduct(Product product) {
+        productsDao.updateProduct(product);
     }
 }

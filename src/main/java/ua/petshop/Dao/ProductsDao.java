@@ -8,14 +8,14 @@ import java.util.List;
 @Repository
 public interface ProductsDao {
 
-    void add(Product product);
+    void addProduct(Product product);
 
     List<Product> getAll();
 
     Product getById(long id);
 
-    void deleteById(long id);
+    void deleteProduct(long id);
 
-    void updateById(Product product);
+    void updateProduct(Product product);
 
 }
