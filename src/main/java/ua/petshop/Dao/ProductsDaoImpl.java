@@ -20,7 +20,7 @@ public class ProductsDaoImpl implements ProductsDao {
 
     public void addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(product);
+        session.save(product);
     }
 
     public List<Product> getAll() {

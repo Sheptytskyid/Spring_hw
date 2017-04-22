@@ -15,7 +15,6 @@
         <th>Manufacturer</th>
         <th>Price</th>
         <th>Description</th>
-        <th>Edit</th>
         <th>Delete</th>
     </tr>
     <tr>
@@ -24,9 +23,35 @@
         <td>${product.manufacturer}</td>
         <td>${product.price}</td>
         <td>${product.description}</td>
-        <td><a href="/products/edit/${product.id}">Edit</a> </td>
-        <td><a href="/products/delete/${product.id}">Delete</a> </td>
+        <td><a href="/products/delete/${product.id}">Delete</a></td>
     </tr>
 </table>
+<h3>Edit product</h3>
+<form action="/products/edit/${product.id}" method="post">
+    <input type="hidden" name="id" value="${product.id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" value="${product.name}"></td>
+        </tr>
+        <tr>
+            <td>Manufacturer:</td>
+            <td><input type="text" name="manufacturer" value="${product.manufacturer}"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" name="price" value="${product.price}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" name="description" value="${product.description}"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update">
+            </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

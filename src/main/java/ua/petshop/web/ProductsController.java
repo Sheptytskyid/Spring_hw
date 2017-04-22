@@ -2,6 +2,7 @@ package ua.petshop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,12 +22,8 @@ public class ProductsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addProduct(Product product) {
-        if (product.getId() == 0) {
-            productsService.addProduct(product);
-        } else {
-            productsService.updateProduct(product);
-        }
+    public String addProduct(@ModelAttribute("product") Product product) {
+        productsService.addProduct(product);
         return "redirect:/products";
     }
 
@@ -37,12 +34,9 @@ public class ProductsController {
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public ModelAndView updateBook(@PathVariable long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("product", productsService.getById(id));
-        modelAndView.addObject("productsList", productsService.getAll());
-        modelAndView.setViewName("products");
-        return modelAndView;
+    public String updateBook(@ModelAttribute("product") Product product, @PathVariable long id) {
+        productsService.updateProduct(product);
+        return "redirect:/products/" + id;
     }
 
     @RequestMapping(value = "/{id}")

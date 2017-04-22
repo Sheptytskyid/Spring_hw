@@ -21,11 +21,11 @@ public class Product {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(name = "manufacturer")
+    @Column(nullable = false)
     private String manufacturer;
-    @Column(name = "price")
+    @Column(nullable = false)
     private int price;
-    @Column(name = "description")
+    @Column
     private String description;
 
     public Long getId() {

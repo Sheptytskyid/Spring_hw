@@ -1,5 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
+<%@ page session="false" %>
 <html>
 <head>
     <title>Pet Shop: Products</title>
@@ -19,88 +22,44 @@
         <th>Delete</th>
     </tr>
     <c:forEach var="product" items="${productslist}">
-    <tr>
-        <td><a href="/products/${product.id}">${product.id}</a></td>
-        <td>${product.name}</td>
-        <td>${product.manufacturer}</td>
-        <td>${product.price}</td>
-        <td>${product.description}</td>
-        <td><a href="/products/edit/${product.id}">Edit</a></td>
-        <td><a href="/products/delete/${product.id}">Delete</a></td>
-    </tr>
+        <tr>
+            <td><a href="/products/${product.id}">${product.id}</a></td>
+            <td>${product.name}</td>
+            <td>${product.manufacturer}</td>
+            <td>${product.price}</td>
+            <td>${product.description}</td>
+            <td><a href="/products/${product.id}">Edit</a></td>
+            <td><a href="/products/delete/${product.id}">Delete</a></td>
+        </tr>
     </c:forEach>
 </table>
 <br>
 <h3>Add product</h3>
-<c:url var="addAction" value="/products/add"/>
-
-<form:form action="${addAction}" commandName="product">
+<form action="/products/add" method="post">
+    <input type="hidden" name="id" value="">
     <table>
-        <c:if test="${!empty product.name}">
-            <tr>
-                <td>
-                    <form:label path="id">
-                        <spring:message text="Dd"/>
-                    </form:label>
-                </td>
-                <td>
-                    <form:input path="id" readonly="true" size="8" disabled="true"/>
-                    <form:hidden path="id"/>
-                </td>
-            </tr>
-        </c:if>
         <tr>
-            <td>
-                <form:label path="name">
-                    <spring:message text="Name"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="name"/>
-            </td>
+            <td>Name:</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td>Manufacturer:</td>
+            <td><input type="text" name="manufacturer"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" name="price"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" name="description"></td>
         </tr>
         <tr>
             <td>
-                <form:label path="manufacturer">
-                    <spring:message text="Manufacturer"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="manufacturer"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form:label path="price">
-                    <spring:message text="Price"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="price"/>
-            </td>
-        </tr><tr>
-        <td>
-            <form:label path="description">
-                <spring:message text="Description"/>
-            </form:label>
-        </td>
-        <td>
-            <form:input path="description"/>
-        </td>
-    </tr>
-        <tr>
-            <td colspan="2">
-                <c:if test="${!empty product.name}">
-                    <input type="submit"
-                           value="<spring:message text="Edit product"/>"/>
-                </c:if>
-                <c:if test="${empty product.name}">
-                    <input type="submit"
-                           value="<spring:message text="Add product"/>"/>
-                </c:if>
+                <input type="submit" value="Add">
             </td>
         </tr>
     </table>
-</form:form>
+</form>
 </body>
 </html>
