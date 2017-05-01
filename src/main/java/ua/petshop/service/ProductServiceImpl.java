@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.petshop.dao.ProductsDao;
 import ua.petshop.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,26 +21,28 @@ public class ProductServiceImpl implements ProductsService {
 
     @Transactional
     public void addProduct(Product product) {
-        productsDao.addProduct(product);
+        productsDao.save(product);
     }
 
     @Transactional
     public List<Product> getAll() {
-        return productsDao.getAll();
+        List<Product> products = new ArrayList<>();
+        productsDao.findAll().forEach(products::add);
+        return products;
     }
 
     @Transactional
     public Product getById(long id) {
-        return productsDao.getById(id);
+        return productsDao.findOne(id);
     }
 
     @Transactional
     public void deleteProduct(long id) {
-        productsDao.deleteProduct(id);
+        productsDao.delete(id);
     }
 
     @Transactional
     public void updateProduct(Product product) {
-        productsDao.updateProduct(product);
+        productsDao.save(product);
     }
 }

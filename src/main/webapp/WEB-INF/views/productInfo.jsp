@@ -23,11 +23,11 @@
         <td>${product.manufacturer}</td>
         <td>${product.price}</td>
         <td>${product.description}</td>
-        <td><a href="/products/delete/${product.id}">Delete</a></td>
+        <td><a href="/products/${product.id}/delete">Delete</a></td>
     </tr>
 </table>
 <h3>Edit product</h3>
-<form action="/products/edit/${product.id}" method="post">
+<form action="/products/${product.id}/update" method="post">
     <input type="hidden" name="id" value="${product.id}">
     <table>
         <tr>

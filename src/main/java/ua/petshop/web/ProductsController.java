@@ -1,16 +1,19 @@
 package ua.petshop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ua.petshop.model.Product;
 import ua.petshop.service.ProductsService;
 
-@Controller
+import javax.validation.Valid;
+
+@RestController
 @RequestMapping("/products")
 public class ProductsController {
 
@@ -22,24 +25,29 @@ public class ProductsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("product") Product product) {
-        productsService.addProduct(product);
-        return "redirect:/products";
+    public ModelAndView addProduct(@ModelAttribute("product") @Valid Product product, Errors errors) {
+        if (!errors.hasErrors()) {
+            productsService.addProduct(product);
+        }
+        ModelAndView model = new ModelAndView("redirect:/products");
+        return model;
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public String deleteProduct(@PathVariable long id) {
+    @RequestMapping(value = "/{id}/delete")
+    public ModelAndView deleteProduct(@PathVariable long id) {
         productsService.deleteProduct(id);
-        return "redirect:/products";
+        ModelAndView model = new ModelAndView("redirect:/products");
+        return model;
     }
 
-    @RequestMapping(value = "/edit/{id}")
-    public String updateBook(@ModelAttribute("product") Product product, @PathVariable long id) {
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    public ModelAndView updateBook(@ModelAttribute("product") Product product, @PathVariable long id) {
         productsService.updateProduct(product);
-        return "redirect:/products/" + id;
+        ModelAndView model = new ModelAndView("redirect:/products/" + id);
+        return model;
     }
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getProduct(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("product" , productsService.getById(id));

@@ -3,11 +3,12 @@ package ua.petshop.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -17,15 +18,15 @@ public class Product {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(unique = true, nullable = false)
     private Long id;
-    @Column(nullable = false)
+    @NotNull
     private String name;
-    @Column(nullable = false)
+    @NotNull
     private String manufacturer;
-    @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 0, integer = 4)
     private int price;
-    @Column
+    @NotNull
     private String description;
 
     public Long getId() {
