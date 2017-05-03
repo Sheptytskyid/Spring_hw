@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    UsersDao usersDao;
+    private UsersDao usersDao;
 
     @Autowired
     public UserDetailsServiceImpl(UsersDao usersDao) {
@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = usersDao.findByUserName(userName);
+        User user = usersDao.findByName(userName);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user.getRoles().forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getName())));
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
