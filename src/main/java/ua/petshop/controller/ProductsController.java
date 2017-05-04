@@ -1,4 +1,4 @@
-package ua.petshop.web;
+package ua.petshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
