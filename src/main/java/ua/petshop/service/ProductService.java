@@ -10,39 +10,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductsService {
+@Transactional
+public class ProductService {
 
     private ProductsDao productsDao;
 
     @Autowired
-    public ProductServiceImpl(ProductsDao productsDao) {
+    public ProductService(ProductsDao productsDao) {
         this.productsDao = productsDao;
     }
 
-    @Transactional
-    public void addProduct(Product product) {
-        productsDao.save(product);
+    public Product addProduct(Product product) {
+        return productsDao.save(product);
     }
 
-    @Transactional
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
         productsDao.findAll().forEach(products::add);
         return products;
     }
 
-    @Transactional
     public Product getById(long id) {
         return productsDao.findOne(id);
     }
 
-    @Transactional
     public void deleteProduct(long id) {
         productsDao.delete(id);
     }
 
-    @Transactional
-    public void updateProduct(Product product) {
-        productsDao.save(product);
+    public Product updateProduct(Product product) {
+        return productsDao.save(product);
     }
 }

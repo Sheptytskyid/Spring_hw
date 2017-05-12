@@ -1,7 +1,6 @@
 package ua.petshop.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
-@Component
 public class Product {
 
     @Id
@@ -67,5 +65,41 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Product product = (Product) o;
+
+        if (price != product.price) {
+            return false;
+        }
+        if (id != null ? !id.equals(product.id) : product.id != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(product.name) : product.name != null) {
+            return false;
+        }
+        if (manufacturer != null ? !manufacturer.equals(product.manufacturer) : product.manufacturer != null) {
+            return false;
+        }
+        return description != null ? description.equals(product.description) : product.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (manufacturer != null ? manufacturer.hashCode() : 0);
+        result = 31 * result + price;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

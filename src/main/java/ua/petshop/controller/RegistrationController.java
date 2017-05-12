@@ -21,24 +21,26 @@ public class RegistrationController {
 
     private UserService userService;
     private SecurityService securityService;
+    private UserValidator userValidator;
 
     @Autowired
-    public RegistrationController(UserService userService, SecurityService securityService) {
+    public RegistrationController(UserService userService, SecurityService securityService, UserValidator userValidator) {
         this.userService = userService;
         this.securityService = securityService;
+        this.userValidator = userValidator;
     }
 
     @GetMapping
     public ModelAndView register() {
         ModelAndView model = new ModelAndView("registration");
-        model.addObject("userForm", new UserDto());
+        model.addObject("user", new UserDto());
         return model;
     }
 
     @PostMapping
-    public ModelAndView processRegistration(@Valid @ModelAttribute("userForm") UserDto user, Errors errors) {
-        System.out.println("inside reg controller");
-        UserValidator.validate(user, errors, userService);
+    public ModelAndView processRegistration(@Valid @ModelAttribute("user") UserDto user, Errors errors) {
+        System.out.println(user.getName() + user.getPassword());
+        userValidator.validate(user, errors, userService);
         if (errors.hasErrors()) {
             return new ModelAndView("registration");
         }
@@ -46,6 +48,6 @@ public class RegistrationController {
         System.out.println(user.getPassword());
         userService.save(user.getName(), user.getPassword());
         securityService.autoLogin(user.getName(), user.getPassword());
-        return new ModelAndView("redirect:/products");
+        return new ModelAndView("redirect:/products/all");
     }
 }

@@ -21,7 +21,7 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <c:forEach var="product" items="${productslist}">
+    <c:forEach var="product" items="${productsList}">
         <tr>
             <td><a href="/products/${product.id}">${product.id}</a></td>
             <td>${product.name}</td>

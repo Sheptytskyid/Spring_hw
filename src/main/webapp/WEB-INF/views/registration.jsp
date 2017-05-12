@@ -28,7 +28,7 @@
 
 <div class="container">
 
-    <form:form method="POST" modelAttribute="userForm" class="form-signin">
+    <form:form method="POST" modelAttribute="user" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -52,6 +52,13 @@
                 <form:errors path="confirmPassword"></form:errors>
             </div>
         </spring:bind>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <%--<spring:bind path="${_csrf.parameterName}">--%>
+        <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
+                <%--<form:input type="hidden" path="${_csrf.parameterName}" value="${_csrf.token}"></form:input>--%>
+            <%--<form:errors path="${_csrf.parameterName}"></form:errors>--%>
+        <%--</div>--%>
+        <%--</spring:bind>--%>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>

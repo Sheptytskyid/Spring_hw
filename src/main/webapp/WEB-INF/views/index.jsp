@@ -5,6 +5,6 @@
   </head>
   <body>
   <h1>Pet Shop</h1>
-  <a href="/products">View products</a>
+  <a href="/products/all">View products</a>
   </body>
 </html>

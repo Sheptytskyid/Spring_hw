@@ -1,12 +1,14 @@
 package ua.petshop.validator;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import ua.petshop.dto.UserDto;
 import ua.petshop.service.UserService;
 
+@Component
 public class UserValidator {
 
-    public static void validate(UserDto user, Errors errors, UserService userService) {
+    public void validate(UserDto user, Errors errors, UserService userService) {
         if (user != null) {
             if (userService.findByName(user.getName())!= null) {
                 errors.rejectValue("name",

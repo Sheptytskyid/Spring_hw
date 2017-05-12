@@ -1,7 +1,6 @@
 package ua.petshop.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Component
 public class User {
 
     @Id
@@ -61,5 +59,33 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        if (!name.equals(user.name)) {
+            return false;
+        }
+        if (!password.equals(user.password)) {
+            return false;
+        }
+        return roles.equals(user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + roles.hashCode();
+        return result;
     }
 }

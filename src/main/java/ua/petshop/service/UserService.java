@@ -27,14 +27,14 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void save(String name, String password) {
+    public User save(String name, String password) {
         User user = new User();
         user.setName(name);
         user.setPassword(passwordEncoder.encode(password));
         Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.findOne(1l));
+        roles.add(roleDao.findOne(1L));
         user.setRoles(roles);
-        userDao.save(user);
+        return userDao.save(user);
     }
 
     public User findByName(String name) {
